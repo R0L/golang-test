@@ -30,6 +30,9 @@ func main() {
 	//ret := leetcode.MajorityElement([]int{6, 5, 5})
 	//fmt.Println(ret)
 
-	ret := leetcode.SingleNumber([]int{1, 1, 2, 3, 4, 3, 4})
+	//ret := leetcode.SingleNumber([]int{1, 1, 2, 3, 4, 3, 4})
+	//fmt.Println(ret)
+
+	ret := leetcode.MissingNumber([]int{0, 1, 2, 3, 5, 6})
 	fmt.Println(ret)
 }
