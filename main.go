@@ -27,6 +27,9 @@ func main() {
 	//ret := leetcode.GroupAnagrams([]string{"eat", "tea", "tan", "ate", "nat", "bat"})
 	//fmt.Println(ret)
 
-	ret := leetcode.MajorityElement([]int{6, 5, 5})
+	//ret := leetcode.MajorityElement([]int{6, 5, 5})
+	//fmt.Println(ret)
+
+	ret := leetcode.SingleNumber([]int{1, 1, 2, 3, 4, 3, 4})
 	fmt.Println(ret)
 }
