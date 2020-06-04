@@ -18,6 +18,7 @@ type grab struct {
 	key    string
 	url    string
 	userId string
+	ip     string
 }
 
 func NewGrab(opts ...Option) Graber {
@@ -62,7 +63,7 @@ func (g *grab) GetSceneInfo(sceneId string) {
 		if result["data"].(map[string]interface{})["countDown"].(float64) == float64(0) {
 			g.panicBuying(sceneId)
 		} else {
-			fmt.Println(result)
+			fmt.Println(g.userId, result)
 		}
 	}
 }
@@ -84,18 +85,21 @@ func (g *grab) panicBuying(sceneId string) {
 		"sceneId": sceneId,
 	}, map[string]string{
 		"x-token":         xToken,
-		"X-FORWARDED-FOR": "192.168.31.105",
-		"CLIENT-IP":       "192.168.31.105",
-		"CURLOPT_REFERER": "192.168.31.105",
+		"X-FORWARDED-FOR": g.ip,
+		"CLIENT-IP":       g.ip,
+		"CURLOPT_REFERER": g.ip,
 	}, &result)
 	if nil != err {
 		// fmt.Println(err)
 		return
 	}
 
-	fmt.Println(".")
-
-	fmt.Println(result)
+	if result["code"] == float64(200) {
+		fmt.Println(g.userId, result)
+	} else {
+		fmt.Print(".")
+	}
+	fmt.Println(g.userId, result)
 
 }
 
@@ -131,4 +135,14 @@ func (c userIdOption) apply(g *grab) {
 
 func WithUserId(userId string) Option {
 	return userIdOption(userId)
+}
+
+type ipOption string
+
+func (c ipOption) apply(g *grab) {
+	g.ip = string(c)
+}
+
+func WithIp(ip string) Option {
+	return ipOption(ip)
 }

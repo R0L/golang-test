@@ -31,7 +31,7 @@ func TestEncrypt(t *testing.T) {
 		{
 			"测试加密",
 			args{
-				src: fmt.Sprintf("%d_2_R022005050000300006", time.Now().UnixNano()),
+				src: fmt.Sprintf("%d_2_R022005310000520100", time.Now().UnixNano()),
 				key: "1234567890123456",
 			},
 			"VmiEoAnpc+4yk1/ntWKNTFsPt70MtqhpIxZ1f/fVoAd5MrTN+90Q8/fpygVtGJQB",
