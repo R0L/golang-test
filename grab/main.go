@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
 
@@ -9,15 +10,16 @@ import (
 
 func main() {
 
-	userIdIps := map[string]string{
-		"R022005050000300034": "192.168.31.105",
-		"R022005170000440021": "192.168.31.106",
-		"R022005120000370013": "10.0.1.107",
-		"R022005060000310036": "192.168.31.108",
-		"R022005100000350017": "192.168.31.109",
+	userIds := []string{
+		"R022005050000300034",
+		"R022005170000440021",
+		"R022005120000370013",
+		"R022005060000310036",
+		"R022005100000350017",
 	}
 
-	for userId, ip := range userIdIps {
+	for _, userId := range userIds {
+		ip := genIpaddr()
 		go func(userId, ip string) {
 			i := 5
 			for i > 0 {
@@ -36,4 +38,27 @@ func main() {
 	}
 	select {}
 
+	// UserIds := []string{
+	// 	"R022005050000300034",
+	// 	"R022005170000440021",
+	// 	"R022005120000370013",
+	// 	"R022005060000310036",
+	// 	"R022005100000350017",
+	// }
+	//
+	// for _, userId := range UserIds {
+	// 	xToken, _ := grab.NewGrab(
+	// 		grab.WithKey("1234567890123456"),
+	// 		grab.WithUrl("http://144.34.167.130:8080"),
+	// 		grab.WithUserId(userId)).GetXToken()
+	//
+	// 	fmt.Printf("\"%s\",\n", xToken)
+	// }
+
+}
+
+func genIpaddr() string {
+	rand.Seed(time.Now().Unix())
+	ip := fmt.Sprintf("%d.%d.%d.%d", rand.Intn(255), rand.Intn(255), rand.Intn(255), rand.Intn(255))
+	return ip
 }

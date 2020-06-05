@@ -9,7 +9,7 @@ import (
 )
 
 type Graber interface {
-	getXToken() (string, error)
+	GetXToken() (string, error)
 	GetSceneInfo(sceneId string)
 	panicBuying(sceneId string)
 }
@@ -30,7 +30,7 @@ func NewGrab(opts ...Option) Graber {
 }
 
 // token
-func (g *grab) getXToken() (string, error) {
+func (g *grab) GetXToken() (string, error) {
 	xTokenStr := fmt.Sprintf("%d_2_%s", time.Now().UnixNano()/1e6, g.userId)
 	return aes.NewAES(g.key).Encrypt(xTokenStr)
 }
@@ -44,7 +44,7 @@ func (g *grab) GetSceneInfo(sceneId string) {
 
 	result := make(map[string]interface{})
 
-	xToken, err := g.getXToken()
+	xToken, err := g.GetXToken()
 	if nil != err {
 		fmt.Println(err)
 		return
@@ -73,7 +73,7 @@ func (g *grab) panicBuying(sceneId string) {
 
 	url := fmt.Sprintf("%s/est/app/scene/panicBuying", g.url)
 
-	xToken, err := g.getXToken()
+	xToken, err := g.GetXToken()
 	if nil != err {
 		fmt.Println(err)
 		return
