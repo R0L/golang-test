@@ -58,7 +58,10 @@ func main() {
 }
 
 func genIpaddr() string {
-	rand.Seed(time.Now().Unix())
+	rand.Seed(time.Now().UnixNano() - rand.Int63n(12345678987654321))
 	ip := fmt.Sprintf("%d.%d.%d.%d", rand.Intn(255), rand.Intn(255), rand.Intn(255), rand.Intn(255))
+	if "" == ip {
+		ip = "...."
+	}
 	return ip
 }

@@ -142,6 +142,10 @@ func (c *customHttp) Request(url string, rParam *RequestParam, result interface{
 	req.Header.Set("Content-Type", string(rParam.ContentType))
 
 	res, err := client.Do(req)
+	if nil != err {
+		fmt.Println(err)
+		return
+	}
 	defer func() {
 		err := res.Body.Close()
 		if nil != err {
